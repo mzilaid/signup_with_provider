@@ -21,12 +21,8 @@ class AuthPrivder extends ChangeNotifier {
     required String email,
     required String password,
   }) {
-    print("o");
-    if (_user != null) {
-      if (_user!.email == email && _user!.password == password) {
-        print("dil");
-        return true;
-      }
+    if (_user!.email == email && _user!.password == password) {
+      return true;
     }
     return false;
   }

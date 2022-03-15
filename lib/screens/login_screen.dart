@@ -4,7 +4,7 @@ import 'package:signup_with_provider/widgets/login_screen_widgets.dart/login_for
 import '../constrants.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -15,19 +15,20 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          body: Column(
-        children: [
-          gap20,
-          Text(
-            "Sign Up",
-            textAlign: TextAlign.start,
-            style: ThemeData.light().textTheme.headline2,
-          ),
-          gap20,
-          LoginForm(),
-        ],
+          body: SingleChildScrollView(
+        child: Column(
+          children: [
+            gap20,
+            const Text(
+              "Login",
+              textAlign: TextAlign.start,
+              style: TextStyle(fontSize: 50),
+            ),
+            gap20,
+            LoginForm(),
+          ],
+        ),
       )),
     );
-    ;
   }
 }

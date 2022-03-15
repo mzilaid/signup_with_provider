@@ -9,7 +9,7 @@ import 'package:signup_with_provider/widgets/signup_screen_widgets/signup_from.d
 import '../constrants.dart';
 
 class SignUpScreen extends StatefulWidget {
-  SignUpScreen({Key? key}) : super(key: key);
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -20,17 +20,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          body: Column(
-        children: [
-          gap20,
-          Text(
-            "Sign Up",
-            textAlign: TextAlign.start,
-            style: ThemeData.light().textTheme.headline2,
-          ),
-          gap20,
-          SignUpForm(),
-        ],
+          body: SingleChildScrollView(
+        child: Column(
+          children: [
+            gap20,
+            const Text(
+              "Sign Up",
+              textAlign: TextAlign.start,
+              style: TextStyle(fontSize: 50),
+            ),
+            gap20,
+            SignUpForm(),
+          ],
+        ),
       )),
     );
   }

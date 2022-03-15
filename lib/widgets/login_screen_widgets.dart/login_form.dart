@@ -10,7 +10,7 @@ import 'package:signup_with_provider/widgets/custom_widgets/custom_textform_fiel
 import '../../constrants.dart';
 
 class LoginForm extends StatefulWidget {
-  LoginForm({Key? key}) : super(key: key);
+  const LoginForm({Key? key}) : super(key: key);
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -20,7 +20,7 @@ class _LoginFormState extends State<LoginForm> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
 
-  var _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -40,7 +40,6 @@ class _LoginFormState extends State<LoginForm> {
   void saveForm() {
     var form = _formKey.currentState;
     if (form!.validate()) {
-      print("hi");
       final auth = Provider.of<AuthPrivder>(context, listen: false);
       bool correctCredentails = auth.login(
           email: _emailController.text, password: _passwordController.text);
@@ -60,14 +59,12 @@ class _LoginFormState extends State<LoginForm> {
           CustomTextFormField(
             labelText: "Email",
             textValidator: (value) {
-              if (value == null) {
+              if (value == null || value == '') {
                 return "Please Enter The Email";
               } else if (!value.contains('@') || !value.contains('.')) {
                 return 'Email is Not Valid';
               }
-              setState(() {
-                value = _emailController.text;
-              });
+              _emailController.text = value;
               return null;
             },
           ),
@@ -76,14 +73,13 @@ class _LoginFormState extends State<LoginForm> {
             labelText: "Password",
             hideText: true,
             textValidator: (value) {
-              if (value == null) {
+              if (value == null || value == '') {
                 return "Please Enter The Password";
               } else if (value.length < 6) {
                 return 'Password Is Too Short';
               }
-              setState(() {
-                value = _passwordController.text;
-              });
+              _passwordController.text = value;
+
               return null;
             },
           ),

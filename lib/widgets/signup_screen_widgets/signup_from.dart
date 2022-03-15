@@ -10,7 +10,7 @@ import 'package:signup_with_provider/widgets/custom_widgets/custom_textform_fiel
 import '../../constrants.dart';
 
 class SignUpForm extends StatefulWidget {
-  SignUpForm({Key? key}) : super(key: key);
+  const SignUpForm({Key? key}) : super(key: key);
 
   @override
   State<SignUpForm> createState() => _SignUpFormState();
@@ -24,7 +24,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   File? userImage;
 
-  var _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -55,6 +55,11 @@ class _SignUpFormState extends State<SignUpForm> {
 
   void saveForm() {
     var form = _formKey.currentState;
+    if (userImage == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Put Image"), backgroundColor: Colors.red),
+      );
+    }
     if (form!.validate() && userImage != null) {
       final auth = Provider.of<AuthPrivder>(context, listen: false);
       auth.signUp(
@@ -62,7 +67,6 @@ class _SignUpFormState extends State<SignUpForm> {
           name: _nameController.text,
           password: _passwordController.text,
           imagePath: userImage!.path);
-      Navigator.pushReplacementNamed(context, '/login');
     }
   }
 
@@ -83,20 +87,14 @@ class _SignUpFormState extends State<SignUpForm> {
               });
             },
             child: CircleAvatar(
-              radius: 50,
-              child: userImage != null
-                  ? FittedBox(
-                      child: Image.file(
-                        userImage!,
-                      ),
-                    )
-                  : Container(),
-            ),
+                radius: 50,
+                backgroundImage:
+                    userImage != null ? FileImage(userImage!) : null),
           ),
           CustomTextFormField(
             labelText: "Name",
             textValidator: (value) {
-              if (value == null) {
+              if (value == null || value == '') {
                 return "Please Enter The Name";
               } else if (value.length < 4) {
                 return 'Name is Too Short';
@@ -109,7 +107,7 @@ class _SignUpFormState extends State<SignUpForm> {
           CustomTextFormField(
             labelText: "Email",
             textValidator: (value) {
-              if (value == null) {
+              if (value == null || value == '') {
                 return "Please Enter The Email";
               } else if (!value.contains('@') || !value.contains('.')) {
                 return 'Email is Not Valid';
@@ -124,7 +122,7 @@ class _SignUpFormState extends State<SignUpForm> {
             labelText: "Password",
             hideText: true,
             textValidator: (value) {
-              if (value == null) {
+              if (value == null || value == '') {
                 return "Please Enter The Password";
               } else if (value.length < 6) {
                 return 'Password Is Too Short';
@@ -139,9 +137,7 @@ class _SignUpFormState extends State<SignUpForm> {
             labelText: "Confirm Password",
             hideText: true,
             textValidator: (value) {
-              print(value);
-              print("Password: ${_passwordController.text}");
-              if (value == null) {
+              if (value == null || value == '') {
                 return "Please Enter The Password";
               } else if (value.length < 6) {
                 return 'Password Is Too Short';
