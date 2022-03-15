@@ -5,14 +5,14 @@ import 'package:provider/provider.dart';
 import 'package:signup_with_provider/constrants.dart';
 import 'package:signup_with_provider/providers/auth_provider.dart';
 
-class HomScreen extends StatefulWidget {
-  const HomScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomScreen> createState() => _HomScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomScreenState extends State<HomScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<AuthPrivder>(context, listen: false).user!;

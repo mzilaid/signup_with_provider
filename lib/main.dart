@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/login': (_) => LoginScreen(),
           '/signup': (_) => SignUpScreen(),
-          '/home': (_) => HomScreen()
+          '/home': (_) => HomeScreen()
         },
       ),
     );
